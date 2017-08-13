@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.nbki</groupId>
+    <artifactId>com.nbki.calculator</artifactId>
+    <version>0.1</version>
+    <packaging>war</packaging>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>stil4m-releases</id>
+            <name>stil4m-releases</name>
+            <url>https://github.com/stil4m/maven-repository/raw/master/releases/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+
+            <plugin>
+                <groupId>nl.stil4m</groupId>
+                <artifactId>elm-maven-plugin</artifactId>
+                <version>1.0.5</version>
+                <executions>
+                    <execution>
+                        <id>Make Elm Source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>make</goal>
+                        </goals>
+                        <configuration>
+                            <inputFile>src/main/elm/Main.elm</inputFile>
+                            <outputFile>src/main/webapp/main.js</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
