@@ -3,6 +3,7 @@ module View exposing (..)
 import CalcInput.Panel
 import Date exposing (Date)
 import History.List
+import Output.Panel
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Models exposing (Input, Model)
@@ -12,7 +13,7 @@ import Msgs exposing (Msg)
 view : Model -> Html Msg
 view model =
     div [ id "content" ]
-        [ text (toString <| Date.hour model.input.date)
+        [ Output.Panel.view model.result
         , viewLeftInput model.input
         , div [ class "rightinput" ] []
         , History.List.view model.history

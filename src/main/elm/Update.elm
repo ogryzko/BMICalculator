@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Models exposing (Model)
 import Msgs exposing (Msg)
+import Commands exposing (calculateCmd, fetchHistory)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -36,10 +37,13 @@ update msg model =
             ( { model | input = { oldInput | weight = weight } }, Cmd.none )
 
         Msgs.Calculate ->
-            ( { model | input = { oldInput | isSubmitted = True } }, Cmd.none )
+            ( { model | input = { oldInput | isSubmitted = True } }, calculateCmd model.input )
 
         Msgs.SetGender gender ->
             ( { model | input = { oldInput | gender = gender } }, Cmd.none )
 
         Msgs.OnFetchHistory response ->
             ( { model | history = response }, Cmd.none )
+        Msgs.OnGetResult response ->
+            ({model | result = response}, fetchHistory)
+

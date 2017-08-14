@@ -3,7 +3,8 @@ module Commands exposing (..)
 import Http exposing (request)
 import Json.Decode as Decode
 import Json.Decode.Pipeline exposing (decode, required)
-import Models exposing (HistoryItem)
+import QueryString as QS
+import Models exposing (HistoryItem, Input, ResultValue)
 import Msgs exposing (Msg)
 import RemoteData
 
@@ -17,7 +18,33 @@ fetchHistory =
 
 fetchHistoryUrl : String
 fetchHistoryUrl =
-    "http://localhost:3000/history"
+    "/history"
+
+calculateCmd : Input -> Cmd Msg
+calculateCmd input =
+       Http.get (calculateQueryString input) resultDecoder
+           |> RemoteData.sendRequest
+           |> Cmd.map Msgs.OnGetResult
+
+calculateUrl : String
+calculateUrl =
+    "/calculator"
+
+calculateQueryString : Input -> String
+calculateQueryString input =
+    let
+        query =
+            QS.empty
+                |> QS.add "weight" (toString input.weight)
+                |> QS.add "height" (toString input.height)
+                |> QS.add "age" (toString input.age)
+                |> QS.add "gender" (toString input.gender)
+                |> QS.render
+    in
+        (calculateUrl ++ query)
+
+
+
 
 
 
@@ -38,6 +65,13 @@ historyItemDecoder =
         |> required "gender" Decode.string
         |> required "height" Decode.float
         |> required "weight" Decode.float
+        |> required "bmi" Decode.float
+        |> required "pi" Decode.float
+        |> required "kind" Decode.string
+
+resultDecoder : Decode.Decoder ResultValue
+resultDecoder =
+    decode ResultValue
         |> required "bmi" Decode.float
         |> required "pi" Decode.float
         |> required "kind" Decode.string
