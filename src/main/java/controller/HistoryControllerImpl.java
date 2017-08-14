@@ -37,7 +37,7 @@ public class HistoryControllerImpl extends HttpServlet implements HistoryControl
             throws ServletException, IOException {
 
         Optional<Result> result = Optional.ofNullable((Result) getServletContext().getAttribute("result"));
-        result.ifPresent(HistoryController::updateWithResult);
+        result.ifPresent(this::updateWithResult);
         JSONArray jsonArr = new JSONArray();
         jsonArr.addAll(history.stream().map(HistoryItem::toJson).collect(Collectors.toList()));
         resp.setContentType("application/json");
