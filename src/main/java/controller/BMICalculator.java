@@ -4,6 +4,7 @@ package controller;
  */
 
 import model.Result;
+import sun.security.validator.ValidatorException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import static java.lang.Math.pow;
+import static util.Constants.*;
+import static util.QueryUtil.*;
 
 @WebServlet(name="bmiCalculator",urlPatterns={"/calculator"})
 public class BMICalculator extends HttpServlet {
@@ -38,4 +41,32 @@ public class BMICalculator extends HttpServlet {
         context.setAttribute("result", result);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String weightString = null;
+        String heightString = null;
+        String ageString = null;
+        String gender = null;
+        Float weight = null;
+        Float height = null;
+        Integer age = null;
+        try {
+            weightString = getField(req, QUERY_PARAM_WEIGH);
+            heightString = getField(req, QUERY_PARAM_HEIGHT);
+            ageString = getField(req, QUERY_PARAM_AGE);
+            gender = getField(req, QUERY_PARAM_GENDER);
+
+            weight = validateFloatStringField(weightString, QUERY_PARAM_WEIGH);
+            height = validateFloatStringField(heightString, QUERY_PARAM_HEIGHT);
+            age = validateIntStringField(ageString, QUERY_PARAM_AGE);
+            gender = validateGender(gender, QUERY_PARAM_GENDER);
+        } catch (ValidatorException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return;
+        }
+
+        float bmi = (float) (weight / pow (height, 2));
+        float pi
+
+    }
 }

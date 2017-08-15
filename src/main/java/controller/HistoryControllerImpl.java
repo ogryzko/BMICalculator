@@ -1,9 +1,11 @@
 package controller;
 
+import model.History;
 import model.HistoryItem;
 import model.Result;
 import org.json.simple.JSONArray;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,47 +19,43 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static util.Constants.HISTORY_ATTRIBUT_NAME;
+
 /**
  * Created by eglushchenko on 11.08.2017.
  */
 @WebServlet(name = "historyController", urlPatterns = {"/history"})
 public class HistoryControllerImpl extends HttpServlet implements HistoryController {
 
-    private List<HistoryItem> history;
+    private History history;
+    private ServletContext context;
 
     @Override
     public void init() throws ServletException {
         super.init();
 
-        history = new ArrayList<>();
+        context = getServletContext();
+
+        history = (History) context.getAttribute(HISTORY_ATTRIBUT_NAME);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        Optional<Result> result = Optional.ofNullable((Result) getServletContext().getAttribute("result"));
-        result.ifPresent(this::updateWithResult);
-        JSONArray jsonArr = new JSONArray();
-        jsonArr.addAll(history.stream().map(HistoryItem::toJson).collect(Collectors.toList()));
-        resp.setContentType("application/json");
-        PrintWriter out = resp.getWriter();
-        out.print(jsonArr.toJSONString());
+        Optional<List<HistoryItem>> items = history.getAll();
 
-    }
+        if(items.isPresent()){
+            JSONArray jsonArr = new JSONArray();
+            JSONArray jsonArray = new JSONArray();
+            jsonArr.addAll(items.get().stream().map(HistoryItem::toJson).collect(Collectors.toList()));
+            resp.setContentType("application/json");
+            PrintWriter out = resp.getWriter();
+            out.print(jsonArr.toJSONString());
+        }
+        else{
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND); //todo
+        }
 
-    @Override
-    public void updateWithResult(Result result) {
-        int id = history.size() + 1;
-        Date date = new Date();
-        String gender = "Male";
-        int age = 10;
-        float height = 180;
-        float weight = 60;
-        float bmi = result.getBmi();
-        float pi = result.getPi();
-        String kind = result.getKind();
-
-        history.add(new HistoryItem(id, date, age, gender, height, weight, bmi, pi, kind));
     }
 }
