@@ -12,10 +12,9 @@ import Msgs exposing (Msg)
 
 view : Model -> Html Msg
 view model =
-    div [ id "content" ]
+    div [ id "content", class "row" ]
         [ Output.Panel.view model.result
         , viewLeftInput model.input
-        , div [ class "rightinput" ] []
         , History.List.view model.history
         ]
 
@@ -48,4 +47,4 @@ conditionAndMessageToErrorDiv ( cond, message ) =
     if cond then
         div [] []
     else
-        div [ style [ ( "color", "red" ) ] ] [ text message ]
+        div [ style [ ( "color", "red" ) ] ] [ text message]

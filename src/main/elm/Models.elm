@@ -7,7 +7,7 @@ import RemoteData exposing (WebData)
 type alias Model =
     { history : WebData (List HistoryItem)
     , input : Input
-    , result : WebData ResultValue {-todo-}
+    , result : WebData HistoryItem {-todo-}
     }
 
 
@@ -56,12 +56,6 @@ type alias HistoryItem =
     , height : Float
     , weight : Float
     , bmi : Float
-    , pi : Float
-    , kind : String
-    }
-
-type alias ResultValue =
-    { bmi : Float
     , pi : Float
     , kind : String
     }

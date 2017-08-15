@@ -1,6 +1,6 @@
 module Msgs exposing (..)
 
-import Models exposing (Gender, HistoryItem, ResultValue)
+import Models exposing (Gender, HistoryItem)
 import RemoteData exposing (WebData)
 
 
@@ -12,5 +12,5 @@ type Msg
     | Calculate
     | SetGender Gender
     | OnFetchHistory (WebData (List HistoryItem))
-    | OnGetResult (WebData ResultValue)
+    | OnGetResult (WebData HistoryItem)
 

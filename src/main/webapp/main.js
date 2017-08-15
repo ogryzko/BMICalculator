@@ -8187,6 +8187,137 @@ var _elm_lang$core$Date$Mar = {ctor: 'Mar'};
 var _elm_lang$core$Date$Feb = {ctor: 'Feb'};
 var _elm_lang$core$Date$Jan = {ctor: 'Jan'};
 
+var _elm_lang$core$Set$foldr = F3(
+	function (f, b, _p0) {
+		var _p1 = _p0;
+		return A3(
+			_elm_lang$core$Dict$foldr,
+			F3(
+				function (k, _p2, b) {
+					return A2(f, k, b);
+				}),
+			b,
+			_p1._0);
+	});
+var _elm_lang$core$Set$foldl = F3(
+	function (f, b, _p3) {
+		var _p4 = _p3;
+		return A3(
+			_elm_lang$core$Dict$foldl,
+			F3(
+				function (k, _p5, b) {
+					return A2(f, k, b);
+				}),
+			b,
+			_p4._0);
+	});
+var _elm_lang$core$Set$toList = function (_p6) {
+	var _p7 = _p6;
+	return _elm_lang$core$Dict$keys(_p7._0);
+};
+var _elm_lang$core$Set$size = function (_p8) {
+	var _p9 = _p8;
+	return _elm_lang$core$Dict$size(_p9._0);
+};
+var _elm_lang$core$Set$member = F2(
+	function (k, _p10) {
+		var _p11 = _p10;
+		return A2(_elm_lang$core$Dict$member, k, _p11._0);
+	});
+var _elm_lang$core$Set$isEmpty = function (_p12) {
+	var _p13 = _p12;
+	return _elm_lang$core$Dict$isEmpty(_p13._0);
+};
+var _elm_lang$core$Set$Set_elm_builtin = function (a) {
+	return {ctor: 'Set_elm_builtin', _0: a};
+};
+var _elm_lang$core$Set$empty = _elm_lang$core$Set$Set_elm_builtin(_elm_lang$core$Dict$empty);
+var _elm_lang$core$Set$singleton = function (k) {
+	return _elm_lang$core$Set$Set_elm_builtin(
+		A2(
+			_elm_lang$core$Dict$singleton,
+			k,
+			{ctor: '_Tuple0'}));
+};
+var _elm_lang$core$Set$insert = F2(
+	function (k, _p14) {
+		var _p15 = _p14;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A3(
+				_elm_lang$core$Dict$insert,
+				k,
+				{ctor: '_Tuple0'},
+				_p15._0));
+	});
+var _elm_lang$core$Set$fromList = function (xs) {
+	return A3(_elm_lang$core$List$foldl, _elm_lang$core$Set$insert, _elm_lang$core$Set$empty, xs);
+};
+var _elm_lang$core$Set$map = F2(
+	function (f, s) {
+		return _elm_lang$core$Set$fromList(
+			A2(
+				_elm_lang$core$List$map,
+				f,
+				_elm_lang$core$Set$toList(s)));
+	});
+var _elm_lang$core$Set$remove = F2(
+	function (k, _p16) {
+		var _p17 = _p16;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(_elm_lang$core$Dict$remove, k, _p17._0));
+	});
+var _elm_lang$core$Set$union = F2(
+	function (_p19, _p18) {
+		var _p20 = _p19;
+		var _p21 = _p18;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(_elm_lang$core$Dict$union, _p20._0, _p21._0));
+	});
+var _elm_lang$core$Set$intersect = F2(
+	function (_p23, _p22) {
+		var _p24 = _p23;
+		var _p25 = _p22;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(_elm_lang$core$Dict$intersect, _p24._0, _p25._0));
+	});
+var _elm_lang$core$Set$diff = F2(
+	function (_p27, _p26) {
+		var _p28 = _p27;
+		var _p29 = _p26;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(_elm_lang$core$Dict$diff, _p28._0, _p29._0));
+	});
+var _elm_lang$core$Set$filter = F2(
+	function (p, _p30) {
+		var _p31 = _p30;
+		return _elm_lang$core$Set$Set_elm_builtin(
+			A2(
+				_elm_lang$core$Dict$filter,
+				F2(
+					function (k, _p32) {
+						return p(k);
+					}),
+				_p31._0));
+	});
+var _elm_lang$core$Set$partition = F2(
+	function (p, _p33) {
+		var _p34 = _p33;
+		var _p35 = A2(
+			_elm_lang$core$Dict$partition,
+			F2(
+				function (k, _p36) {
+					return p(k);
+				}),
+			_p34._0);
+		var p1 = _p35._0;
+		var p2 = _p35._1;
+		return {
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Set$Set_elm_builtin(p1),
+			_1: _elm_lang$core$Set$Set_elm_builtin(p2)
+		};
+	});
+
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
 
@@ -10906,6 +11037,113 @@ var _krisajenkins$remotedata$RemoteData$update = F2(
 		}
 	});
 
+var _rtfeldman$elm_validate$Validate$ifInvalid = F2(
+	function (test, error) {
+		var validator = function (subject) {
+			return test(subject) ? {
+				ctor: '::',
+				_0: error,
+				_1: {ctor: '[]'}
+			} : {ctor: '[]'};
+		};
+		return validator;
+	});
+var _rtfeldman$elm_validate$Validate$isValidEmail = function () {
+	var validEmail = _elm_lang$core$Regex$caseInsensitive(
+		_elm_lang$core$Regex$regex('^[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'));
+	return _elm_lang$core$Regex$contains(validEmail);
+}();
+var _rtfeldman$elm_validate$Validate$ifInvalidEmail = _rtfeldman$elm_validate$Validate$ifInvalid(
+	function (_p0) {
+		return !_rtfeldman$elm_validate$Validate$isValidEmail(_p0);
+	});
+var _rtfeldman$elm_validate$Validate$isNothing = function (subject) {
+	var _p1 = subject;
+	if (_p1.ctor === 'Just') {
+		return false;
+	} else {
+		return true;
+	}
+};
+var _rtfeldman$elm_validate$Validate$ifNothing = _rtfeldman$elm_validate$Validate$ifInvalid(_rtfeldman$elm_validate$Validate$isNothing);
+var _rtfeldman$elm_validate$Validate$ifEmptySet = _rtfeldman$elm_validate$Validate$ifInvalid(_elm_lang$core$Set$isEmpty);
+var _rtfeldman$elm_validate$Validate$ifEmptyDict = _rtfeldman$elm_validate$Validate$ifInvalid(_elm_lang$core$Dict$isEmpty);
+var _rtfeldman$elm_validate$Validate$ifNotInt = F2(
+	function (error, subject) {
+		var _p2 = _elm_lang$core$String$toInt(subject);
+		if (_p2.ctor === 'Ok') {
+			return {ctor: '[]'};
+		} else {
+			return {
+				ctor: '::',
+				_0: error,
+				_1: {ctor: '[]'}
+			};
+		}
+	});
+var _rtfeldman$elm_validate$Validate$lacksNonWhitespaceChars = _elm_lang$core$Regex$regex('^\\s*$');
+var _rtfeldman$elm_validate$Validate$ifBlank = _rtfeldman$elm_validate$Validate$ifInvalid(
+	_elm_lang$core$Regex$contains(_rtfeldman$elm_validate$Validate$lacksNonWhitespaceChars));
+var _rtfeldman$elm_validate$Validate$any = F2(
+	function (validators, subject) {
+		any:
+		while (true) {
+			var _p3 = validators;
+			if (_p3.ctor === '[]') {
+				return true;
+			} else {
+				var _p4 = _p3._0(subject);
+				if (_p4.ctor === '[]') {
+					var _v4 = _p3._1,
+						_v5 = subject;
+					validators = _v4;
+					subject = _v5;
+					continue any;
+				} else {
+					return false;
+				}
+			}
+		}
+	});
+var _rtfeldman$elm_validate$Validate$eager = F2(
+	function (validators, subject) {
+		eager:
+		while (true) {
+			var _p5 = validators;
+			if (_p5.ctor === '[]') {
+				return _elm_lang$core$Maybe$Nothing;
+			} else {
+				var _p6 = _p5._0(subject);
+				if (_p6.ctor === '[]') {
+					var _v8 = _p5._1,
+						_v9 = subject;
+					validators = _v8;
+					subject = _v9;
+					continue eager;
+				} else {
+					return _elm_lang$core$Maybe$Just(_p6._0);
+				}
+			}
+		}
+	});
+var _rtfeldman$elm_validate$Validate$all = function (validators) {
+	var validator = function (subject) {
+		var accumulateErrors = F2(
+			function (currentValidator, totalErrors) {
+				return A2(
+					_elm_lang$core$Basics_ops['++'],
+					totalErrors,
+					currentValidator(subject));
+			});
+		return A3(
+			_elm_lang$core$List$foldl,
+			accumulateErrors,
+			{ctor: '[]'},
+			validators);
+	};
+	return validator;
+};
+
 var _user$project$Models$initialInput = {
 	age: 0,
 	date: _elm_lang$core$Date$fromTime(0),
@@ -11165,7 +11403,11 @@ var _user$project$CalcInput_Panel$gender = A2(
 						{
 							ctor: '::',
 							_0: _elm_lang$html$Html_Attributes$for('csex1'),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('form-check-label'),
+								_1: {ctor: '[]'}
+							}
 						},
 						{
 							ctor: '::',
@@ -11173,21 +11415,25 @@ var _user$project$CalcInput_Panel$gender = A2(
 								_elm_lang$html$Html$input,
 								{
 									ctor: '::',
-									_0: A2(_elm_lang$html$Html_Attributes$attribute, 'checked', ''),
+									_0: _elm_lang$html$Html_Attributes$class('form-check-input'),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$id('csex1'),
+										_0: A2(_elm_lang$html$Html_Attributes$attribute, 'checked', ''),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$name('csex'),
+											_0: _elm_lang$html$Html_Attributes$id('csex1'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$type_('radio'),
+												_0: _elm_lang$html$Html_Attributes$name('csex'),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$html$Html_Events$onClick(
-														_user$project$Msgs$SetGender('Male')),
-													_1: {ctor: '[]'}
+													_0: _elm_lang$html$Html_Attributes$type_('radio'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Events$onClick(
+															_user$project$Msgs$SetGender('Male')),
+														_1: {ctor: '[]'}
+													}
 												}
 											}
 										}
@@ -11210,7 +11456,11 @@ var _user$project$CalcInput_Panel$gender = A2(
 								{
 									ctor: '::',
 									_0: _elm_lang$html$Html_Attributes$for('csex2'),
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('form-check-label'),
+										_1: {ctor: '[]'}
+									}
 								},
 								{
 									ctor: '::',
@@ -11218,18 +11468,22 @@ var _user$project$CalcInput_Panel$gender = A2(
 										_elm_lang$html$Html$input,
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$id('csex2'),
+											_0: _elm_lang$html$Html_Attributes$class('form-check-input'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$name('csex'),
+												_0: _elm_lang$html$Html_Attributes$id('csex2'),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$type_('radio'),
+													_0: _elm_lang$html$Html_Attributes$name('csex'),
 													_1: {
 														ctor: '::',
-														_0: _elm_lang$html$Html_Events$onClick(
-															_user$project$Msgs$SetGender('Female')),
-														_1: {ctor: '[]'}
+														_0: _elm_lang$html$Html_Attributes$type_('radio'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Events$onClick(
+																_user$project$Msgs$SetGender('Female')),
+															_1: {ctor: '[]'}
+														}
 													}
 												}
 											}
@@ -11327,7 +11581,7 @@ var _user$project$CalcInput_Panel$view = A2(
 	_elm_lang$html$Html$div,
 	{
 		ctor: '::',
-		_0: _elm_lang$html$Html_Attributes$class('panel'),
+		_0: _elm_lang$html$Html_Attributes$class('col'),
 		_1: {ctor: '[]'}
 	},
 	{
@@ -11431,29 +11685,41 @@ var _user$project$Commands$historyItemDecoder = A3(
 									_elm_lang$core$Json_Decode$int,
 									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Models$HistoryItem))))))))));
 var _user$project$Commands$historyDecoder = _elm_lang$core$Json_Decode$list(_user$project$Commands$historyItemDecoder);
+var _user$project$Commands$validateInput = function (input) {
+	return (_elm_lang$core$Native_Utils.cmp(input.age, 120) < 1) && ((_elm_lang$core$Native_Utils.cmp(input.age, 0) > 0) && ((_elm_lang$core$Native_Utils.cmp(input.height, 300) < 0) && ((_elm_lang$core$Native_Utils.cmp(input.height, 0) > 0) && ((_elm_lang$core$Native_Utils.cmp(input.weight, 570) < 0) && (_elm_lang$core$Native_Utils.cmp(input.weight, 0) > 0)))));
+};
 var _user$project$Commands$calculateUrl = '/calculator';
 var _user$project$Commands$calculateQueryString = function (input) {
 	var query = _Bogdanp$elm_querystring$QueryString$render(
 		A3(
 			_Bogdanp$elm_querystring$QueryString$add,
-			'height',
-			_elm_lang$core$Basics$toString(input.height),
+			'gender',
+			input.gender,
 			A3(
 				_Bogdanp$elm_querystring$QueryString$add,
-				'weight',
-				_elm_lang$core$Basics$toString(input.weight),
-				_Bogdanp$elm_querystring$QueryString$empty)));
+				'age',
+				_elm_lang$core$Basics$toString(input.age),
+				A3(
+					_Bogdanp$elm_querystring$QueryString$add,
+					'height',
+					_elm_lang$core$Basics$toString(input.height),
+					A3(
+						_Bogdanp$elm_querystring$QueryString$add,
+						'weight',
+						_elm_lang$core$Basics$toString(input.weight),
+						_Bogdanp$elm_querystring$QueryString$empty)))));
 	return A2(_elm_lang$core$Basics_ops['++'], _user$project$Commands$calculateUrl, query);
 };
 var _user$project$Commands$calculateCmd = function (input) {
-	return A2(
+	return _user$project$Commands$validateInput(input) ? A2(
 		_elm_lang$core$Platform_Cmd$map,
 		_user$project$Msgs$OnGetResult,
 		_krisajenkins$remotedata$RemoteData$sendRequest(
-			A2(
-				_elm_lang$http$Http$get,
+			A3(
+				_elm_lang$http$Http$post,
 				_user$project$Commands$calculateQueryString(input),
-				_user$project$Commands$resultDecoder)));
+				_elm_lang$http$Http$emptyBody,
+				_user$project$Commands$historyItemDecoder))) : _elm_lang$core$Platform_Cmd$none;
 };
 var _user$project$Commands$fetchHistoryUrl = '/history';
 var _user$project$Commands$fetchHistory = A2(
@@ -11587,12 +11853,20 @@ var _user$project$History_List$list = function (historyItems) {
 			ctor: '::',
 			_0: A2(
 				_elm_lang$html$Html$table,
-				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('table'),
+					_1: {ctor: '[]'}
+				},
 				{
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$thead,
-						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('thead-inverse'),
+							_1: {ctor: '[]'}
+						},
 						{
 							ctor: '::',
 							_0: A2(
@@ -11835,6 +12109,15 @@ var _user$project$Update$update = F2(
 		}
 	});
 
+var _user$project$Output_Panel$bmiToOutputString = function (n) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'ИМТ= ',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(n),
+			'кг/м^2'));
+};
 var _user$project$Output_Panel$maybeResult = function (response) {
 	var _p0 = response;
 	switch (_p0.ctor) {
@@ -11847,13 +12130,17 @@ var _user$project$Output_Panel$maybeResult = function (response) {
 				_elm_lang$core$Basics$toString(_p0._0));
 		default:
 			return _elm_lang$html$Html$text(
-				_elm_lang$core$Basics$toString(_p0._0.bmi));
+				_user$project$Output_Panel$bmiToOutputString(_p0._0.bmi));
 	}
 };
 var _user$project$Output_Panel$view = function (response) {
 	return A2(
 		_elm_lang$html$Html$div,
-		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('col'),
+			_1: {ctor: '[]'}
+		},
 		{
 			ctor: '::',
 			_0: A2(
@@ -11978,7 +12265,11 @@ var _user$project$View$view = function (model) {
 		{
 			ctor: '::',
 			_0: _elm_lang$html$Html_Attributes$id('content'),
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('row'),
+				_1: {ctor: '[]'}
+			}
 		},
 		{
 			ctor: '::',
@@ -11988,19 +12279,8 @@ var _user$project$View$view = function (model) {
 				_0: _user$project$View$viewLeftInput(model.input),
 				_1: {
 					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('rightinput'),
-							_1: {ctor: '[]'}
-						},
-						{ctor: '[]'}),
-					_1: {
-						ctor: '::',
-						_0: _user$project$History_List$view(model.history),
-						_1: {ctor: '[]'}
-					}
+					_0: _user$project$History_List$view(model.history),
+					_1: {ctor: '[]'}
 				}
 			}
 		});
@@ -12009,7 +12289,7 @@ var _user$project$View$view = function (model) {
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Models$initialModel, _1: _user$project$Commands$fetchHistory};
+var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Models$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$main = _elm_lang$html$Html$program(
 	{init: _user$project$Main$init, view: _user$project$View$view, update: _user$project$Update$update, subscriptions: _user$project$Main$subscriptions})();
 

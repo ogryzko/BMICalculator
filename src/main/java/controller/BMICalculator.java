@@ -32,7 +32,7 @@ public class BMICalculator extends HttpServlet {
         historyItemFactory = new HistoryItemFactory();
     }
 
-    @Override
+    /*@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -48,7 +48,7 @@ public class BMICalculator extends HttpServlet {
 
         ServletContext context = getServletContext();
         context.setAttribute("result", result);
-    }
+    }*/
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -107,6 +107,7 @@ public class BMICalculator extends HttpServlet {
         History history = (History) getServletContext().getAttribute(HISTORY_ATTRIBUT_NAME);
         history.push(item);
         resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
         PrintWriter out = resp.getWriter();
         out.write(item.toJson().toString());
     }

@@ -35,7 +35,6 @@ update msg model =
                     Result.withDefault 0 <| String.toFloat w
             in
             ( { model | input = { oldInput | weight = weight } }, Cmd.none )
-
         Msgs.Calculate ->
             ( { model | input = { oldInput | isSubmitted = True } }, calculateCmd model.input )
 

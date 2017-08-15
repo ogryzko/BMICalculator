@@ -8,7 +8,7 @@ import Msgs exposing (Msg)
 
 view : Html Msg
 view =
-    div [ class "panel" ]
+    div [ class "col" ]
         [ table []
             [ tbody []
                 [ age
@@ -45,14 +45,14 @@ gender =
         [ td []
             [ text "Пол" ]
         , td [ align "right" ]
-            [ label [ for "csex1" ]
-                [ input [ attribute "checked" "", id "csex1", name "csex", type_ "radio", onClick (Msgs.SetGender "Male") ]
+            [ label [ for "csex1", class "form-check-label" ]
+                [ input [ class "form-check-input", attribute "checked" "", id "csex1", name "csex", type_ "radio", onClick (Msgs.SetGender "Male") ]
                     []
                 , text "Муж."
                 ]
             , text "  "
-            , label [ for "csex2" ]
-                [ input [ id "csex2", name "csex", type_ "radio", onClick (Msgs.SetGender "Female") ]
+            , label [ for "csex2", class "form-check-label" ]
+                [ input [ class "form-check-input",  id "csex2", name "csex", type_ "radio", onClick (Msgs.SetGender "Female") ]
                     []
                 , text "Жен."
                 ]

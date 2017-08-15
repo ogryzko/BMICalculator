@@ -1,12 +1,13 @@
 module Commands exposing (..)
 
-import Http exposing (request)
+import Http exposing (request, emptyBody)
 import Json.Decode as Decode
 import Json.Decode.Pipeline exposing (decode, required)
 import QueryString as QS
-import Models exposing (HistoryItem, Input, ResultValue)
+import Models exposing (HistoryItem, Input)
 import Msgs exposing (Msg)
 import RemoteData
+import Validate exposing (ifInvalid)
 
 
 fetchHistory : Cmd Msg
@@ -22,9 +23,13 @@ fetchHistoryUrl =
 
 calculateCmd : Input -> Cmd Msg
 calculateCmd input =
-       Http.post (calculateQueryString input) resultDecoder
-           |> RemoteData.sendRequest
-           |> Cmd.map Msgs.OnGetResult
+       if validateInput input then
+        Http.post (calculateQueryString input) emptyBody historyItemDecoder
+            |> RemoteData.sendRequest
+            |> Cmd.map Msgs.OnGetResult
+        else
+            Cmd.none
+
 
 calculateUrl : String
 calculateUrl =
@@ -38,14 +43,15 @@ calculateQueryString input =
                 |> QS.add "weight" (toString input.weight)
                 |> QS.add "height" (toString input.height)
                 |> QS.add "age" (toString input.age)
-                |> QS.add "gender" (toString input.gender)
+                |> QS.add "gender" input.gender
                 |> QS.render
     in
         (calculateUrl ++ query)
 
 
-
-
+validateInput : Input -> Bool
+validateInput input =
+   (input.age <= 120) && (input.age > 0)  && (input.height < 300) && (input.height > 0) && (input.weight < 570) && (input.weight > 0)
 
 
 -- DECODERS
@@ -65,13 +71,6 @@ historyItemDecoder =
         |> required "gender" Decode.string
         |> required "height" Decode.float
         |> required "weight" Decode.float
-        |> required "bmi" Decode.float
-        |> required "pi" Decode.float
-        |> required "kind" Decode.string
-
-resultDecoder : Decode.Decoder ResultValue
-resultDecoder =
-    decode ResultValue
         |> required "bmi" Decode.float
         |> required "pi" Decode.float
         |> required "kind" Decode.string

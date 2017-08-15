@@ -33,8 +33,8 @@ maybeList response =
 list : List HistoryItem -> Html Msg
 list historyItems =
     div [ class "p2" ]
-        [ table []
-            [ thead []
+        [ table [class "table"]
+            [ thead [ class "thead-inverse"]
                 [ tr []
                     [ th [] [ text "ID" ]
                     , th [] [ text "Время" ]
