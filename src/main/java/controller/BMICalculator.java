@@ -55,10 +55,27 @@ public class BMICalculator extends HttpServlet {
 
         float heightMiters = height / 100;
 
-        float bmi = (float) (weight / pow(heightMiters, 2));
-        float pi = (float) (height / pow(heightMiters, 3));
+        float bmi = calculateBmi(weight, heightMiters);
+        float pi = calculatePI(height, heightMiters);
         String kind = null;
 
+        kind = makePrediction(age, bmi);
+        HistoryItem item = historyItemFactory.getHistoryItem(age, gender, height, weight, bmi, pi, kind);
+        if (item == null) {
+            resp.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
+            return;
+        }// todo
+
+        History history = (History) getServletContext().getAttribute(HISTORY_ATTRIBUT_NAME);
+        history.push(item);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        out.write(item.toJson().toString());
+    }
+
+    private String makePrediction(Integer age, float bmi) {
+        String kind;
         if (age > 18) {
             if (bmi <= 16)
                 kind = "Выраженный дефицит массы тела";
@@ -77,17 +94,14 @@ public class BMICalculator extends HttpServlet {
         } else {
             kind = "Младше 18, данные не доступны...";
         }
-        HistoryItem item = historyItemFactory.getHistoryItem(age, gender, height, weight, bmi, pi, kind);
-        if (item == null) {
-            resp.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
-            return;
-        }// todo
+        return kind;
+    }
 
-        History history = (History) getServletContext().getAttribute(HISTORY_ATTRIBUT_NAME);
-        history.push(item);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        PrintWriter out = resp.getWriter();
-        out.write(item.toJson().toString());
+    private float calculatePI(Float height, float heightMiters) {
+        return (float) (height / pow(heightMiters, 3));
+    }
+
+    private float calculateBmi(Float weight, float heightMiters) {
+        return (float) (weight / pow(heightMiters, 2));
     }
 }

@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
  */
 public class Converter {
     private static final SimpleDateFormat df = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssz" );
+
     public static JSONObject toJson(HistoryItem historyItem) {
         JSONObject obj = new JSONObject();
         obj.put("id", historyItem.getId());

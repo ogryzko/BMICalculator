@@ -44,7 +44,6 @@ public class HistoryController extends HttpServlet {
 
         if (items.isPresent()) {
             JSONArray jsonArr = new JSONArray();
-            JSONArray jsonArray = new JSONArray();
             jsonArr.addAll(items.get().stream().map(HistoryItem::toJson).collect(Collectors.toList()));
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");

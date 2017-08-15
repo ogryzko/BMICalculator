@@ -7,7 +7,6 @@ import QueryString as QS
 import Models exposing (HistoryItem, Input)
 import Msgs exposing (Msg)
 import RemoteData
-import Validate exposing (ifInvalid)
 
 
 fetchHistory : Cmd Msg

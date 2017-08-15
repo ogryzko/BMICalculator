@@ -21,12 +21,24 @@ maybeResult response =
         RemoteData.NotAsked ->
             text ""
         RemoteData.Loading ->
-            text "Идет подсчёт..."
+            text "Загрузка..."
         RemoteData.Failure error ->
             text (toString error)
         RemoteData.Success result ->
-            text (bmiToOutputString result.bmi)
+            resultView result
 
-bmiToOutputString : Float -> String
-bmiToOutputString n =
-    "ИМТ= " ++ (toString n) ++ "кг/м^2"
+
+resultView : HistoryItem -> Html Msg
+resultView item =
+    div [ class "bigtext" ]
+        [ b []
+            [ text ("ИМТ = " ++ (toString item.bmi) ++ "кг/м")
+            , sup []
+                [ text "2" ]
+            ]
+        , text "  ("
+        ,
+            b []
+                [ text item.kind ]
+        , text ")"
+        ]

@@ -17,7 +17,7 @@ public class QueryUtil {
     }
 
     public static Float validateFloatStringField(String floatString, String fieldName) throws ValidatorException {
-        //todo refacotor
+        //todo refacotoring
         Float result = null;
         try {
             result = Float.parseFloat(floatString);

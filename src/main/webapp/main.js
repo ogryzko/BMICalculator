@@ -8187,137 +8187,6 @@ var _elm_lang$core$Date$Mar = {ctor: 'Mar'};
 var _elm_lang$core$Date$Feb = {ctor: 'Feb'};
 var _elm_lang$core$Date$Jan = {ctor: 'Jan'};
 
-var _elm_lang$core$Set$foldr = F3(
-	function (f, b, _p0) {
-		var _p1 = _p0;
-		return A3(
-			_elm_lang$core$Dict$foldr,
-			F3(
-				function (k, _p2, b) {
-					return A2(f, k, b);
-				}),
-			b,
-			_p1._0);
-	});
-var _elm_lang$core$Set$foldl = F3(
-	function (f, b, _p3) {
-		var _p4 = _p3;
-		return A3(
-			_elm_lang$core$Dict$foldl,
-			F3(
-				function (k, _p5, b) {
-					return A2(f, k, b);
-				}),
-			b,
-			_p4._0);
-	});
-var _elm_lang$core$Set$toList = function (_p6) {
-	var _p7 = _p6;
-	return _elm_lang$core$Dict$keys(_p7._0);
-};
-var _elm_lang$core$Set$size = function (_p8) {
-	var _p9 = _p8;
-	return _elm_lang$core$Dict$size(_p9._0);
-};
-var _elm_lang$core$Set$member = F2(
-	function (k, _p10) {
-		var _p11 = _p10;
-		return A2(_elm_lang$core$Dict$member, k, _p11._0);
-	});
-var _elm_lang$core$Set$isEmpty = function (_p12) {
-	var _p13 = _p12;
-	return _elm_lang$core$Dict$isEmpty(_p13._0);
-};
-var _elm_lang$core$Set$Set_elm_builtin = function (a) {
-	return {ctor: 'Set_elm_builtin', _0: a};
-};
-var _elm_lang$core$Set$empty = _elm_lang$core$Set$Set_elm_builtin(_elm_lang$core$Dict$empty);
-var _elm_lang$core$Set$singleton = function (k) {
-	return _elm_lang$core$Set$Set_elm_builtin(
-		A2(
-			_elm_lang$core$Dict$singleton,
-			k,
-			{ctor: '_Tuple0'}));
-};
-var _elm_lang$core$Set$insert = F2(
-	function (k, _p14) {
-		var _p15 = _p14;
-		return _elm_lang$core$Set$Set_elm_builtin(
-			A3(
-				_elm_lang$core$Dict$insert,
-				k,
-				{ctor: '_Tuple0'},
-				_p15._0));
-	});
-var _elm_lang$core$Set$fromList = function (xs) {
-	return A3(_elm_lang$core$List$foldl, _elm_lang$core$Set$insert, _elm_lang$core$Set$empty, xs);
-};
-var _elm_lang$core$Set$map = F2(
-	function (f, s) {
-		return _elm_lang$core$Set$fromList(
-			A2(
-				_elm_lang$core$List$map,
-				f,
-				_elm_lang$core$Set$toList(s)));
-	});
-var _elm_lang$core$Set$remove = F2(
-	function (k, _p16) {
-		var _p17 = _p16;
-		return _elm_lang$core$Set$Set_elm_builtin(
-			A2(_elm_lang$core$Dict$remove, k, _p17._0));
-	});
-var _elm_lang$core$Set$union = F2(
-	function (_p19, _p18) {
-		var _p20 = _p19;
-		var _p21 = _p18;
-		return _elm_lang$core$Set$Set_elm_builtin(
-			A2(_elm_lang$core$Dict$union, _p20._0, _p21._0));
-	});
-var _elm_lang$core$Set$intersect = F2(
-	function (_p23, _p22) {
-		var _p24 = _p23;
-		var _p25 = _p22;
-		return _elm_lang$core$Set$Set_elm_builtin(
-			A2(_elm_lang$core$Dict$intersect, _p24._0, _p25._0));
-	});
-var _elm_lang$core$Set$diff = F2(
-	function (_p27, _p26) {
-		var _p28 = _p27;
-		var _p29 = _p26;
-		return _elm_lang$core$Set$Set_elm_builtin(
-			A2(_elm_lang$core$Dict$diff, _p28._0, _p29._0));
-	});
-var _elm_lang$core$Set$filter = F2(
-	function (p, _p30) {
-		var _p31 = _p30;
-		return _elm_lang$core$Set$Set_elm_builtin(
-			A2(
-				_elm_lang$core$Dict$filter,
-				F2(
-					function (k, _p32) {
-						return p(k);
-					}),
-				_p31._0));
-	});
-var _elm_lang$core$Set$partition = F2(
-	function (p, _p33) {
-		var _p34 = _p33;
-		var _p35 = A2(
-			_elm_lang$core$Dict$partition,
-			F2(
-				function (k, _p36) {
-					return p(k);
-				}),
-			_p34._0);
-		var p1 = _p35._0;
-		var p2 = _p35._1;
-		return {
-			ctor: '_Tuple2',
-			_0: _elm_lang$core$Set$Set_elm_builtin(p1),
-			_1: _elm_lang$core$Set$Set_elm_builtin(p2)
-		};
-	});
-
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
 
@@ -11037,113 +10906,6 @@ var _krisajenkins$remotedata$RemoteData$update = F2(
 		}
 	});
 
-var _rtfeldman$elm_validate$Validate$ifInvalid = F2(
-	function (test, error) {
-		var validator = function (subject) {
-			return test(subject) ? {
-				ctor: '::',
-				_0: error,
-				_1: {ctor: '[]'}
-			} : {ctor: '[]'};
-		};
-		return validator;
-	});
-var _rtfeldman$elm_validate$Validate$isValidEmail = function () {
-	var validEmail = _elm_lang$core$Regex$caseInsensitive(
-		_elm_lang$core$Regex$regex('^[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'));
-	return _elm_lang$core$Regex$contains(validEmail);
-}();
-var _rtfeldman$elm_validate$Validate$ifInvalidEmail = _rtfeldman$elm_validate$Validate$ifInvalid(
-	function (_p0) {
-		return !_rtfeldman$elm_validate$Validate$isValidEmail(_p0);
-	});
-var _rtfeldman$elm_validate$Validate$isNothing = function (subject) {
-	var _p1 = subject;
-	if (_p1.ctor === 'Just') {
-		return false;
-	} else {
-		return true;
-	}
-};
-var _rtfeldman$elm_validate$Validate$ifNothing = _rtfeldman$elm_validate$Validate$ifInvalid(_rtfeldman$elm_validate$Validate$isNothing);
-var _rtfeldman$elm_validate$Validate$ifEmptySet = _rtfeldman$elm_validate$Validate$ifInvalid(_elm_lang$core$Set$isEmpty);
-var _rtfeldman$elm_validate$Validate$ifEmptyDict = _rtfeldman$elm_validate$Validate$ifInvalid(_elm_lang$core$Dict$isEmpty);
-var _rtfeldman$elm_validate$Validate$ifNotInt = F2(
-	function (error, subject) {
-		var _p2 = _elm_lang$core$String$toInt(subject);
-		if (_p2.ctor === 'Ok') {
-			return {ctor: '[]'};
-		} else {
-			return {
-				ctor: '::',
-				_0: error,
-				_1: {ctor: '[]'}
-			};
-		}
-	});
-var _rtfeldman$elm_validate$Validate$lacksNonWhitespaceChars = _elm_lang$core$Regex$regex('^\\s*$');
-var _rtfeldman$elm_validate$Validate$ifBlank = _rtfeldman$elm_validate$Validate$ifInvalid(
-	_elm_lang$core$Regex$contains(_rtfeldman$elm_validate$Validate$lacksNonWhitespaceChars));
-var _rtfeldman$elm_validate$Validate$any = F2(
-	function (validators, subject) {
-		any:
-		while (true) {
-			var _p3 = validators;
-			if (_p3.ctor === '[]') {
-				return true;
-			} else {
-				var _p4 = _p3._0(subject);
-				if (_p4.ctor === '[]') {
-					var _v4 = _p3._1,
-						_v5 = subject;
-					validators = _v4;
-					subject = _v5;
-					continue any;
-				} else {
-					return false;
-				}
-			}
-		}
-	});
-var _rtfeldman$elm_validate$Validate$eager = F2(
-	function (validators, subject) {
-		eager:
-		while (true) {
-			var _p5 = validators;
-			if (_p5.ctor === '[]') {
-				return _elm_lang$core$Maybe$Nothing;
-			} else {
-				var _p6 = _p5._0(subject);
-				if (_p6.ctor === '[]') {
-					var _v8 = _p5._1,
-						_v9 = subject;
-					validators = _v8;
-					subject = _v9;
-					continue eager;
-				} else {
-					return _elm_lang$core$Maybe$Just(_p6._0);
-				}
-			}
-		}
-	});
-var _rtfeldman$elm_validate$Validate$all = function (validators) {
-	var validator = function (subject) {
-		var accumulateErrors = F2(
-			function (currentValidator, totalErrors) {
-				return A2(
-					_elm_lang$core$Basics_ops['++'],
-					totalErrors,
-					currentValidator(subject));
-			});
-		return A3(
-			_elm_lang$core$List$foldl,
-			accumulateErrors,
-			{ctor: '[]'},
-			validators);
-	};
-	return validator;
-};
-
 var _user$project$Models$initialInput = {
 	age: 0,
 	date: _elm_lang$core$Date$fromTime(0),
@@ -12088,6 +11850,64 @@ var _user$project$Update$update = F2(
 		}
 	});
 
+var _user$project$Output_Panel$resultView = function (item) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('bigtext'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$b,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'ИМТ = ',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(item.bmi),
+								'кг/м'))),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$sup,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('2'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('  ('),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$b,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(item.kind),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(')'),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};
 var _user$project$Output_Panel$bmiToOutputString = function (n) {
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
@@ -12103,13 +11923,12 @@ var _user$project$Output_Panel$maybeResult = function (response) {
 		case 'NotAsked':
 			return _elm_lang$html$Html$text('');
 		case 'Loading':
-			return _elm_lang$html$Html$text('Идет подсчёт...');
+			return _elm_lang$html$Html$text('Загрузка...');
 		case 'Failure':
 			return _elm_lang$html$Html$text(
 				_elm_lang$core$Basics$toString(_p0._0));
 		default:
-			return _elm_lang$html$Html$text(
-				_user$project$Output_Panel$bmiToOutputString(_p0._0.bmi));
+			return _user$project$Output_Panel$resultView(_p0._0);
 	}
 };
 var _user$project$Output_Panel$view = function (response) {
