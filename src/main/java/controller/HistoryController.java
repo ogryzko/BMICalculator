@@ -9,5 +9,5 @@ import java.util.Optional;
  */
 public interface HistoryController {
 
-    public void updateWithResult(Result result);
+    //public void updateWithResult(Result result);
 }

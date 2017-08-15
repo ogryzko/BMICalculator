@@ -22,7 +22,7 @@ fetchHistoryUrl =
 
 calculateCmd : Input -> Cmd Msg
 calculateCmd input =
-       Http.get (calculateQueryString input) resultDecoder
+       Http.post (calculateQueryString input) resultDecoder
            |> RemoteData.sendRequest
            |> Cmd.map Msgs.OnGetResult
 

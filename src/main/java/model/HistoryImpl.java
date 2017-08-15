@@ -10,14 +10,18 @@ import java.util.Optional;
  */
 public class HistoryImpl implements History {
 
-    Optional<List<HistoryItem>> items;
+    Optional<List<HistoryItem>> items = Optional.empty();
 
     @Override
     public void push(HistoryItem item) {
+        if(!items.isPresent()){
+            this.items = Optional.of(new ArrayList<HistoryItem>());
+        }
+        this.items.get().add(item);
     }
 
     @Override
     public Optional<List<HistoryItem>> getAll() {
-        return null;
+        return items;
     }
 }

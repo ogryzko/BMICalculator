@@ -10,7 +10,7 @@ import View exposing (view)
 
 init : ( Model, Cmd Msg )
 init =
-    ( initialModel, fetchHistory )
+    ( initialModel, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
