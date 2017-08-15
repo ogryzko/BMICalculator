@@ -17,6 +17,7 @@ public class QueryUtil {
     }
 
     public static Float validateFloatStringField(String floatString, String fieldName) throws ValidatorException {
+        //todo refacotor
         Float result = null;
         try {
             result = Float.parseFloat(floatString);
@@ -25,6 +26,9 @@ public class QueryUtil {
         }
         if(result == 0){
             throw new ValidatorException(String.format("Field %s must not be 0", fieldName));
+        }
+        if(result < 0){
+            throw new ValidatorException(String.format("Field %s must not be negative", fieldName));
         }
         return result;
     }

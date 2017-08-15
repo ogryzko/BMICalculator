@@ -11165,10 +11165,6 @@ var _user$project$Models$HistoryItem = F9(
 	function (a, b, c, d, e, f, g, h, i) {
 		return {id: a, date: b, age: c, gender: d, height: e, weight: f, bmi: g, pi: h, kind: i};
 	});
-var _user$project$Models$ResultValue = F3(
-	function (a, b, c) {
-		return {bmi: a, pi: b, kind: c};
-	});
 
 var _user$project$Msgs$OnGetResult = function (a) {
 	return {ctor: 'OnGetResult', _0: a};
@@ -11579,11 +11575,7 @@ var _user$project$CalcInput_Panel$age = A2(
 	});
 var _user$project$CalcInput_Panel$view = A2(
 	_elm_lang$html$Html$div,
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html_Attributes$class('col'),
-		_1: {ctor: '[]'}
-	},
+	{ctor: '[]'},
 	{
 		ctor: '::',
 		_0: A2(
@@ -11634,19 +11626,6 @@ var _user$project$CalcInput_Panel$view = A2(
 		}
 	});
 
-var _user$project$Commands$resultDecoder = A3(
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-	'kind',
-	_elm_lang$core$Json_Decode$string,
-	A3(
-		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-		'pi',
-		_elm_lang$core$Json_Decode$float,
-		A3(
-			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'bmi',
-			_elm_lang$core$Json_Decode$float,
-			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Models$ResultValue))));
 var _user$project$Commands$historyItemDecoder = A3(
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 	'kind',
@@ -11846,7 +11825,7 @@ var _user$project$History_List$list = function (historyItems) {
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('p2'),
+			_0: _elm_lang$html$Html_Attributes$class('row'),
 			_1: {ctor: '[]'}
 		},
 		{
@@ -12246,7 +12225,7 @@ var _user$project$View$viewLeftInput = function (input) {
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('leftinput'),
+			_0: _elm_lang$html$Html_Attributes$class('col'),
 			_1: {ctor: '[]'}
 		},
 		{
@@ -12264,24 +12243,35 @@ var _user$project$View$view = function (model) {
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$id('content'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('row'),
-				_1: {ctor: '[]'}
-			}
+			_0: _elm_lang$html$Html_Attributes$class('container'),
+			_1: {ctor: '[]'}
 		},
 		{
 			ctor: '::',
-			_0: _user$project$Output_Panel$view(model.result),
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$id('content'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('row'),
+						_1: {ctor: '[]'}
+					}
+				},
+				{
+					ctor: '::',
+					_0: _user$project$Output_Panel$view(model.result),
+					_1: {
+						ctor: '::',
+						_0: _user$project$View$viewLeftInput(model.input),
+						_1: {ctor: '[]'}
+					}
+				}),
 			_1: {
 				ctor: '::',
-				_0: _user$project$View$viewLeftInput(model.input),
-				_1: {
-					ctor: '::',
-					_0: _user$project$History_List$view(model.history),
-					_1: {ctor: '[]'}
-				}
+				_0: _user$project$History_List$view(model.history),
+				_1: {ctor: '[]'}
 			}
 		});
 };

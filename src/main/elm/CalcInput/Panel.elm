@@ -8,7 +8,7 @@ import Msgs exposing (Msg)
 
 view : Html Msg
 view =
-    div [ class "col" ]
+    div [  ]
         [ table []
             [ tbody []
                 [ age

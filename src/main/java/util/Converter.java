@@ -1,7 +1,5 @@
 package util;
-
 import model.HistoryItem;
-import model.Result;
 import org.json.simple.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -26,11 +24,4 @@ public class Converter {
         return obj;
     }
 
-    public static JSONObject toJson(Result result) {
-        JSONObject obj = new JSONObject();
-        obj.put("bmi", result.getBmi());
-        obj.put("pi", result.getPi());
-        obj.put("kind", result.getKind());
-        return obj;
-    }
 }

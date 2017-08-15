@@ -2,7 +2,6 @@ package controller;
 
 import model.History;
 import model.HistoryItem;
-import model.Result;
 import org.json.simple.JSONArray;
 
 import javax.servlet.ServletContext;

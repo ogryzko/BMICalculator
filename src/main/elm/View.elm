@@ -12,16 +12,19 @@ import Msgs exposing (Msg)
 
 view : Model -> Html Msg
 view model =
-    div [ id "content", class "row" ]
-        [ Output.Panel.view model.result
-        , viewLeftInput model.input
-        , History.List.view model.history
-        ]
+    div [class "container"]
+    [
+        div [ id "content", class "row" ]
+            [ Output.Panel.view model.result
+            , viewLeftInput model.input
+            ]
+            ,History.List.view model.history
+     ]
 
 
 viewLeftInput : Input -> Html Msg
 viewLeftInput input =
-    div [ class "leftinput" ]
+    div [ class "col" ]
         [ CalcInput.Panel.view
         , validation input
         ]

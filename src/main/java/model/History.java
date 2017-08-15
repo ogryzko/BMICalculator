@@ -1,7 +1,5 @@
 package model;
 
-import model.HistoryItem;
-
 import java.util.List;
 import java.util.Optional;
 

@@ -6,10 +6,7 @@ package controller;
 import model.History;
 import model.HistoryItem;
 import model.HistoryItemFactory;
-import model.Result;
 import sun.security.validator.ValidatorException;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,24 +28,6 @@ public class BMICalculator extends HttpServlet {
     public void init() throws ServletException {
         historyItemFactory = new HistoryItemFactory();
     }
-
-    /*@Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        float weight = Float.parseFloat(req.getParameter("weight"));
-        float height = Float.parseFloat(req.getParameter("height"));
-        float bmi = (float) (weight / pow(height / 100, 2));
-        float pi = (float) (weight / pow(height / 100, 3));
-        String kind = "Normal";
-        Result result = new Result(bmi, pi, kind);
-        resp.setContentType("application/json");
-        PrintWriter out = resp.getWriter();
-        out.print(result.toJson().toJSONString());
-
-        ServletContext context = getServletContext();
-        context.setAttribute("result", result);
-    }*/
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

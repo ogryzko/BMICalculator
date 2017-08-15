@@ -32,7 +32,7 @@ maybeList response =
 
 list : List HistoryItem -> Html Msg
 list historyItems =
-    div [ class "p2" ]
+    div [ class "row" ]
         [ table [class "table"]
             [ thead [ class "thead-inverse"]
                 [ tr []
