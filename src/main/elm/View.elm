@@ -8,6 +8,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Models exposing (Input, Model)
 import Msgs exposing (Msg)
+import Validate exposing (ifInvalid)
 
 
 view : Model -> Html Msg
@@ -29,6 +30,12 @@ viewLeftInput input =
         , validation input
         ]
 
+
+validateInput : Input -> List String
+validateInput =
+    Validate.all
+        [
+        ]
 
 validation : Input -> Html Msg
 validation input =
